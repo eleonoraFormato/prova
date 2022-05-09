@@ -1,0 +1,40 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from TrovaStatoPagamentoService WSDL service -->
+
+  <service name="TrovaStatoPagamento" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://ws.prova"/>
+      <parameter name="wsdlServiceElement" value="TrovaStatoPagamentoService"/>
+      <parameter name="schemaQualified" value="http://ws.prova"/>
+      <parameter name="wsdlServicePort" value="TrovaStatoPagamento"/>
+      <parameter name="className" value="prova.ws.TrovaStatoPagamentoSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="TrovaStatoPagamento"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="randomStringa" qname="operNS:randomStringa" xmlns:operNS="http://ws.prova" returnQName="retNS:randomStringaReturn" xmlns:retNS="http://ws.prova" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+      </operation>
+      <operation name="randomInt" qname="operNS:randomInt" xmlns:operNS="http://ws.prova" returnQName="retNS:randomIntReturn" xmlns:retNS="http://ws.prova" returnType="rtns:int" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+      </operation>
+      <operation name="trovaStatoPagamento" qname="operNS:trovaStatoPagamento" xmlns:operNS="http://ws.prova" returnQName="retNS:trovaStatoPagamentoReturn" xmlns:retNS="http://ws.prova" returnType="rtns:StatoPagamento" xmlns:rtns="http://ws.prova" soapAction="" >
+      </operation>
+      <parameter name="allowedMethods" value="randomInt randomStringa trovaStatoPagamento"/>
+
+      <typeMapping
+        xmlns:ns="http://ws.prova"
+        qname="ns:StatoPagamento"
+        type="java:prova.ws.StatoPagamento"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+</deployment>
